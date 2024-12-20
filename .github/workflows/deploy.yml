@@ -35,7 +35,7 @@ jobs:
           docker pull pawanlive/rc-api:latest
           docker stop rc-api || true
           docker rm rc-api || true
-          docker run -d --name rc-api \
+          docker run --network=host -d --name rc-api \
             -p 1337:1337 \
             --env-file /home/rheumac/.env \
             pawanlive/rc-api:latest
