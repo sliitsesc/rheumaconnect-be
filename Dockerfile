@@ -10,8 +10,11 @@ RUN npm install --production
 # Copy application files
 COPY . .
 
+# Build the Strapi application
+RUN npm run build
+
 # Expose the default Strapi port
 EXPOSE 1337
 
-# Run the application
+# Start the application
 CMD ["npm", "start"]
