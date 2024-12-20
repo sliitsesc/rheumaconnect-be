@@ -1,0 +1,46 @@
+name: Deploy to Staging via Docker Hub
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build the Docker image
+        run: |
+          docker build -t pawanlive/rc-api:latest .
+
+      - name: Push the Docker image to Docker Hub
+        run: |
+          docker push pawanlive/rc-api:latest
+
+      - name: Deploy to Azure VM
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > ssh_key
+          chmod 600 ssh_key
+          ssh -i ssh_key -o StrictHostKeyChecking=no rheumac@${{ secrets.AZURE_VM_IP }} << 'EOF'
+          # Pull and run the Docker image
+          docker pull pawanlive/rc-api:latest
+          docker stop rc-api || true
+          docker rm rc-api || true
+          docker run -d --name rc-api \
+            -p 1337:1337 \
+            --env-file /home/rheumac/.env \
+            pawanlive/rc-api:latest
+
+          # Exit the SSH session
+          exit
+          EOF
+          rm ssh_key
