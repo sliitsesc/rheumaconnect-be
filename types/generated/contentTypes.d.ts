@@ -369,9 +369,55 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
+  collectionName: 'categories';
+  info: {
+    displayName: 'Categories';
+    pluralName: 'categories';
+    singularName: 'category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLandingPageLandingPage extends Struct.SingleTypeSchema {
   collectionName: 'landing_pages';
   info: {
+    description: '';
     displayName: 'Landing Page';
     pluralName: 'landing-pages';
     singularName: 'landing-page';
@@ -388,10 +434,25 @@ export interface ApiLandingPageLandingPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    heroSection: Schema.Attribute.Component<
-      'landing-page.hero-section',
-      false
-    > &
+    heroButton: Schema.Attribute.Component<'common.button', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroImage: Schema.Attribute.Component<'common.image', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroMainTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroSubtitle: Schema.Attribute.Text &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -402,6 +463,22 @@ export interface ApiLandingPageLandingPage extends Struct.SingleTypeSchema {
       'oneToMany',
       'api::landing-page.landing-page'
     >;
+    mainCategoriesDescription: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    mainCategoriesList: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
+    mainCategoriesTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -412,6 +489,7 @@ export interface ApiLandingPageLandingPage extends Struct.SingleTypeSchema {
 export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
   collectionName: 'navbars';
   info: {
+    description: '';
     displayName: 'Navbar';
     pluralName: 'navbars';
     singularName: 'navbar';
@@ -436,6 +514,12 @@ export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
       }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::navbar.navbar'>;
+    navbarButton: Schema.Attribute.Component<'common.button', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -952,6 +1036,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::category.category': ApiCategoryCategory;
       'api::landing-page.landing-page': ApiLandingPageLandingPage;
       'api::navbar.navbar': ApiNavbarNavbar;
       'plugin::content-releases.release': PluginContentReleasesRelease;

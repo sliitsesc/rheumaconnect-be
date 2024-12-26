@@ -4,7 +4,8 @@
   "info": {
     "singularName": "landing-page",
     "pluralName": "landing-pages",
-    "displayName": "Landing Page"
+    "displayName": "Landing Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,8 +16,23 @@
     }
   },
   "attributes": {
-    "heroSection": {
-      "displayName": "Hero Section",
+    "heroMainTitle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "heroSubtitle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "heroButton": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -24,7 +40,39 @@
           "localized": true
         }
       },
-      "component": "landing-page.hero-section"
+      "component": "common.button"
+    },
+    "heroImage": {
+      "displayName": "Image",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "common.image"
+    },
+    "mainCategoriesTitle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "mainCategoriesDescription": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "mainCategoriesList": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
     }
   }
 }
