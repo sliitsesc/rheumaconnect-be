@@ -4,7 +4,8 @@
   "info": {
     "singularName": "subcategory",
     "pluralName": "subcategories",
-    "displayName": "subcategories"
+    "displayName": "subcategories",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,20 +17,27 @@
     },
     "slug": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "subtitle": {
       "type": "string"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category",
+      "inversedBy": "subcategory"
     }
   }
 }

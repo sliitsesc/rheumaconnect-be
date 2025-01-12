@@ -415,6 +415,14 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
           localized: false;
         };
       }>;
+    subcategories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subcategory.subcategory'
+    >;
+    subcategory: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::subcategory.subcategory'
+    >;
     subtitle: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -543,6 +551,7 @@ export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
 export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
   collectionName: 'subcategories';
   info: {
+    description: '';
     displayName: 'subcategories';
     pluralName: 'subcategories';
     singularName: 'subcategory';
@@ -551,6 +560,7 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -563,7 +573,7 @@ export interface ApiSubcategorySubcategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.String & Schema.Attribute.Unique;
+    slug: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
