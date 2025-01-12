@@ -1,5 +1,17 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface CategoriesSubcategories extends Struct.ComponentSchema {
+  collectionName: 'components_categories_subcategories';
+  info: {
+    displayName: 'subcategories';
+  };
+  attributes: {
+    name: Schema.Attribute.String;
+    slug: Schema.Attribute.String;
+    subtitle: Schema.Attribute.String;
+  };
+}
+
 export interface CommonButton extends Struct.ComponentSchema {
   collectionName: 'components_common_buttons';
   info: {
@@ -40,6 +52,7 @@ export interface CommonLink extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'categories.subcategories': CategoriesSubcategories;
       'common.button': CommonButton;
       'common.image': CommonImage;
       'common.link': CommonLink;
