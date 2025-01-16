@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "articles",
   "info": {
-    "singularName": "category",
-    "pluralName": "categories",
-    "displayName": "Categories",
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "Articles",
     "description": ""
   },
   "options": {
@@ -16,7 +16,7 @@
     }
   },
   "attributes": {
-    "name": {
+    "title": {
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -34,23 +34,13 @@
       "type": "string",
       "required": true
     },
-    "subtitle": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "image": {
+    "thumbnailImage": {
       "type": "media",
       "multiple": false,
       "required": false,
       "allowedTypes": [
         "images",
-        "files",
-        "videos",
-        "audios"
+        "files"
       ],
       "pluginOptions": {
         "i18n": {
@@ -58,10 +48,28 @@
         }
       }
     },
-    "subcategories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::subcategory.subcategory"
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "pdf": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files",
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

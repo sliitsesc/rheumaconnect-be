@@ -4,7 +4,7 @@
   "info": {
     "singularName": "subcategory",
     "pluralName": "subcategories",
-    "displayName": "subcategories",
+    "displayName": "Subcategories",
     "description": ""
   },
   "options": {
@@ -33,11 +33,10 @@
     "subtitle": {
       "type": "string"
     },
-    "category": {
+    "articles": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category",
-      "inversedBy": "subcategory"
+      "relation": "oneToMany",
+      "target": "api::article.article"
     }
   }
 }
