@@ -6,5 +6,5 @@ services:
     ports:
       - "1337:1337"
     env_file:
-      - /home/rheumac/.env
+      - /home/rheumac/envs/rc-api/.env
     restart: always
