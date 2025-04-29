@@ -35,9 +35,10 @@ jobs:
           docker pull pawanlive/rc-api:latest
           docker stop rc-api || true
           docker rm rc-api || true
-          docker run -d --name rc-api \
+          docker run --network=host -d --name rc-api \
             -p 1337:1337 \
-            --env-file /home/rheumac/.env \
+            --env-file /home/rheumac/envs/rc-api/.env \
+            -v /strapi-uploads:/usr/src/app/public/uploads \
             pawanlive/rc-api:latest
 
           # Exit the SSH session
