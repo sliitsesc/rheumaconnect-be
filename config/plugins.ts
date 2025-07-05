@@ -1,11 +1,10 @@
 module.exports = ({ env }) => ({
-  // ...
   upload: {
     config: {
       provider: "aws-s3",
       providerOptions: {
-        // baseUrl: env("CDN_URL"),
-        // rootPath: env("CDN_ROOT_PATH"),
+        baseUrl: env("AWS_CLOUDFRONT_URL") || `https://${env("AWS_BUCKET_NAME")}.s3.${env("AWS_REGION")}.amazonaws.com`,
+        rootPath: env("CDN_ROOT_PATH"),
         s3Options: {
           credentials: {
             accessKeyId: env("AWS_ACCESS_KEY_ID"),
@@ -26,5 +25,4 @@ module.exports = ({ env }) => ({
       },
     },
   },
-  // ...
 });
