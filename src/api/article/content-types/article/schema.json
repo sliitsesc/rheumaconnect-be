@@ -38,10 +38,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ],
+      "allowedTypes": ["images", "files"],
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -54,17 +51,14 @@
           "localized": true
         }
       },
-      "type": "string",
+      "type": "text",
       "required": true
     },
     "pdf": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "files",
-        "images"
-      ],
+      "allowedTypes": ["files", "images"],
       "pluginOptions": {
         "i18n": {
           "localized": true
